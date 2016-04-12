@@ -1,0 +1,5 @@
+# Environment vars config
+.env
+
+# Dependency directory
+node_modules

@@ -1,0 +1,32 @@
+{
+  "name": "calamarcopolo",
+  "version": "0.1.0",
+  "description": "simple funny bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint *.js ||true",
+    "start": "./index.js",
+    "start:ngrok": "ngrok http $PORT"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fczuardi/calamarculino.git"
+  },
+  "keywords": [
+    "bot"
+  ],
+  "author": "Fabricio C Zuardi",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/fczuardi/calamarculino/issues"
+  },
+  "homepage": "https://github.com/fczuardi/calamarculino#readme",
+  "devDependencies": {
+    "botbuilder": "^0.8.0",
+    "eslint": "^2.7.0",
+    "eslint-config-airbnb": "^7.0.0",
+    "request-promise": "^2.0.1",
+    "restify": "^4.0.4",
+    "tsmlj": "^1.0.0"
+  }
+}
