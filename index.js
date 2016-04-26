@@ -10,6 +10,7 @@ const {
     LUIS_MARCOPOLO_URL,
     LUIS_ROBOVIARIO_URL,
     LUIS_CORTANA_URL,
+    LUIS_HELLO_GOODBYE,
     BOT_FRAMEWORK_ENDPOINT_PATH
 } = process.env;
 const bot = new builder.BotConnectorBot();
