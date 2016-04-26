@@ -23,8 +23,8 @@ mainDialog.onDefault((session, args) => {
         `${LUIS_ROBOVIARIO_URL}&q=${encodeURIComponent(session.message.text)}`,
         `${LUIS_HELLO_GOODBYE}&q=${encodeURIComponent(session.message.text)}`
     ];
-    Promise.all([rp(urls[0]), rp(urls[1])]).then((values) => {
-        console.log('values', values);
+    Promise.all([rp(urls[0]), rp(urls[1]), rp(urls[2])]).then((values) => {
+        console.log('values', values[2]);
         const cortanaResult = JSON.parse(values[0]);
         const roboviarioResult = JSON.parse(values[1]);
         const helloGoodbyeResult = JSON.parse(values[2]);
@@ -34,13 +34,13 @@ mainDialog.onDefault((session, args) => {
                 ${args.intents[0].score};
             *roboviário:*
                 ${roboviarioResult.intents[0].intent},
-                ${roboviarioResult.intents[0].score};.
+                ${roboviarioResult.intents[0].score};
             *helloGoodbye:*
                 ${helloGoodbyeResult.intents[0].intent},
-                ${helloGoodbyeResult.intents[0].score};.
+                ${helloGoodbyeResult.intents[0].score};
             *cortana:*
                 ${cortanaResult.intents[0].intent},
-                ${cortanaResult.intents[0].score};
+                ${cortanaResult.intents[0].score};.
         `;
         console.log('message ', message);
         session.send(message);
