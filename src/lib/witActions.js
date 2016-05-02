@@ -13,24 +13,27 @@ const firstEntityValue = (entities, entity) => {
     return typeof val === 'object' ? val.value : val;
 };
 
-const actions = {
+const setupActions = callbacks => ({
     say(sessionId, context, message, cb) {
-        console.log(message);
-        cb();
+        callbacks.say(sessionId, context, message, cb);
+    },
+    error(sessionId, context, error) {
+        callbacks.error(sessionId, context, error);
     },
     merge(sessionId, context, entities, message, cb) {
         console.log('merge context', context);
         console.log('merge entities', entities);
         let nextContext = {};
 
+        const command = firstEntityValue(entities, 'command');
         const intent = firstEntityValue(entities, 'intent');
         if (intent === 'restart') {
             nextContext.restartDialog = true;
             console.log('next context', nextContext);
-            return cb(nextContext);
+            return callbacks.merge(sessionId, nextContext, cb);
         }
 
-        if (intent === 'greeting') {
+        if (intent === 'greeting' || command === '/start') {
             nextContext.greetingDialog = true;
             console.log('next context', nextContext);
         }
@@ -39,7 +42,7 @@ const actions = {
         if (insult) {
             nextContext.insultDialog = true;
             console.log('next context', nextContext);
-            return cb(nextContext);
+            return callbacks.merge(sessionId, nextContext, cb);
         }
 
         const faq = firstEntityValue(entities, 'faqSubject');
@@ -84,10 +87,7 @@ const actions = {
             nextContext.tripDialog = true;
         }
         console.log('next context', nextContext);
-        return cb(nextContext);
-    },
-    error(sessionId, context, error) {
-        console.log(error.message);
+        return callbacks.merge(sessionId, nextContext, cb);
     }
-};
-module.exports = actions;
+});
+module.exports = setupActions;
