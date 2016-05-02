@@ -26,6 +26,12 @@ const setupActions = callbacks => ({
         let nextContext = {};
 
         const command = firstEntityValue(entities, 'command');
+
+        if (command === '/start') {
+            nextContext.disclaimerDialog = true;
+            return callbacks.merge(sessionId, nextContext, cb);
+        }
+
         const intent = firstEntityValue(entities, 'intent');
         if (intent === 'restart') {
             nextContext.restartDialog = true;
