@@ -6,7 +6,7 @@
   "scripts": {
     "test": "eslint *.js ||true",
     "start": "./index.js",
-    "ppp": "git push && npm version patch && npm publish",
+    "ppp": "npm version patch && npm publish && git push",
     "start:ngrok": "ngrok http $PORT"
   },
   "repository": {
