@@ -55,7 +55,7 @@ const setupActions = callbacks => ({
             return callbacks.merge(sessionId, nextContext, cb);
         }
 
-        const faq = firstEntityValue(entities, 'faqSubject');
+        const faq = firstEntityValue(entities, 'faq');
         if (faq) {
             nextContext.faqSubject = faq;
         }
