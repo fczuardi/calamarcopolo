@@ -21,6 +21,7 @@ const setupActions = callbacks => ({
         callbacks.error(sessionId, context, error);
     },
     merge(sessionId, context, entities, message, cb) {
+        console.log(`\nUser: ${message}\n`);
         console.log('merge context', context);
         console.log('merge entities', entities);
         let nextContext = {};
