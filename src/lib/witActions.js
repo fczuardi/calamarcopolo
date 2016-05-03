@@ -39,7 +39,7 @@ const setupActions = callbacks => ({
             return callbacks.merge(sessionId, nextContext, cb);
         }
 
-        if (intent === 'greeting' || command === '/start') {
+        if (intent === 'greeting') {
             nextContext.greetingDialog = true;
             console.log('next context', nextContext);
         }
