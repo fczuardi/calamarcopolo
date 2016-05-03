@@ -26,7 +26,6 @@ const setupActions = callbacks => ({
         let nextContext = {};
 
         const command = firstEntityValue(entities, 'command');
-
         if (command === '/start') {
             nextContext.disclaimerDialog = true;
             return callbacks.merge(sessionId, nextContext, cb);
@@ -41,6 +40,11 @@ const setupActions = callbacks => ({
 
         if (intent === 'greeting') {
             nextContext.greetingDialog = true;
+            console.log('next context', nextContext);
+        }
+
+        if (intent === 'help') {
+            nextContext.helpDialog = true;
             console.log('next context', nextContext);
         }
 
