@@ -26,17 +26,6 @@ const setupActions = callbacks => ({
         console.log('merge entities', entities);
         let nextContext = {};
 
-        const intent = firstEntityValue(entities, 'intent');
-        if (intent === 'greeting') {
-            nextContext.greetingDialog = true;
-            console.log('next context', nextContext);
-        }
-
-        if (intent === 'help') {
-            nextContext.helpDialog = true;
-            console.log('next context', nextContext);
-        }
-
         const insult = entities.insult;
         if (insult) {
             nextContext.insultDialog = true;
@@ -85,9 +74,19 @@ const setupActions = callbacks => ({
                 nextContext.botName = 'Calamarcopolo';
                 nextContext.version = version;
                 break;
+            case 'help':
+                nextContext.helpDialog = true;
+                console.log('next context', nextContext);
+                break;
             default:
                 break;
             }
+        }
+
+        const interaction = firstEntityValue(entities, 'interaction');
+        if (interaction === 'greeting') {
+            nextContext.greetingDialog = true;
+            console.log('next context', nextContext);
         }
 
         const trip = firstEntityValue(entities, 'trip');
