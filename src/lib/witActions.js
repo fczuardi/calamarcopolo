@@ -26,6 +26,7 @@ const setupActions = callbacks => ({
         console.log('merge entities', entities);
         let nextContext = {};
 
+        const intent = firstEntityValue(entities, 'intent');
         if (intent === 'greeting') {
             nextContext.greetingDialog = true;
             console.log('next context', nextContext);
