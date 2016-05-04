@@ -94,7 +94,8 @@ const setupActions = callbacks => ({
                 break;
             }
         }
-        if (intent === 'tripInfo') {
+        const trip = firstEntityValue(entities, 'trip');
+        if (trip === 'info') {
             nextContext.tripDialog = true;
         }
         console.log('next context', nextContext);
