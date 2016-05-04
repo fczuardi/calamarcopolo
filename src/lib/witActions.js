@@ -32,13 +32,6 @@ const setupActions = callbacks => ({
             return callbacks.merge(sessionId, nextContext, cb);
         }
 
-        const intent = firstEntityValue(entities, 'intent');
-        if (intent === 'restart') {
-            nextContext.restartDialog = true;
-            console.log('next context', nextContext);
-            return callbacks.merge(sessionId, nextContext, cb);
-        }
-
         if (intent === 'greeting') {
             nextContext.greetingDialog = true;
             console.log('next context', nextContext);
@@ -83,10 +76,14 @@ const setupActions = callbacks => ({
             console.log('next context O', nextContext);
         }
 
-
-        if (intent === 'command') {
-            switch (message) {
-            case '/version':
+        const command = firstEntityValue(entities, 'command');
+        if (command) {
+            switch (command) {
+            case 'restart':
+                nextContext.restartDialog = true;
+                console.log('next context', nextContext);
+                return callbacks.merge(sessionId, {}, cb);
+            case 'version':
                 nextContext.botName = 'Calamarcopolo';
                 nextContext.version = version;
                 break;
@@ -94,6 +91,7 @@ const setupActions = callbacks => ({
                 break;
             }
         }
+
         const trip = firstEntityValue(entities, 'trip');
         if (trip === 'info') {
             nextContext.tripDialog = true;
