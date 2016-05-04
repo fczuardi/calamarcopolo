@@ -26,12 +26,6 @@ const setupActions = callbacks => ({
         console.log('merge entities', entities);
         let nextContext = {};
 
-        const command = firstEntityValue(entities, 'command');
-        if (command === '/start') {
-            nextContext.disclaimerDialog = true;
-            return callbacks.merge(sessionId, nextContext, cb);
-        }
-
         if (intent === 'greeting') {
             nextContext.greetingDialog = true;
             console.log('next context', nextContext);
@@ -83,6 +77,9 @@ const setupActions = callbacks => ({
                 nextContext.restartDialog = true;
                 console.log('next context', nextContext);
                 return callbacks.merge(sessionId, {}, cb);
+            case 'start':
+                nextContext.disclaimerDialog = true;
+                return callbacks.merge(sessionId, nextContext, cb);
             case 'version':
                 nextContext.botName = 'Calamarcopolo';
                 nextContext.version = version;
