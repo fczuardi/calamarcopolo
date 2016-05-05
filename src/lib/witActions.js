@@ -1,6 +1,7 @@
 'use strict';
 
 const version = require('../../package.json').version;
+const faqAnswers = require('../../answers.json');
 
 const firstEntityValue = (entities, entity) => {
     const val = entities && entities[entity] &&
@@ -52,7 +53,9 @@ const setupActions = callbacks => ({
         const faq = firstEntityValue(entities, 'faq');
         if (faq) {
             nextContext.faqSubject = faq;
-            return callbacks.merge(sessionId, nextContext, cb);
+            const selectedAnswer = faqAnswers.find( answer => answer.value === faq);
+            const replyText = selectedAnswer ? selectedAnswer.response : null;
+            return callbacks.merge(sessionId, nextContext, cb, replyText);
         }
 
 

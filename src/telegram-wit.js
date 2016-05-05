@@ -58,12 +58,18 @@ tgClient.on('message', message => {
                 // .then(msg => console.log(`Error message sent to TG: ${msg}`))
                 .catch(err => console.log(`Telegram sendMessage catch: ${err}`));
             },
-            merge: (sessionId, context, cb) => {
+            merge: (sessionId, context, cb, replyText) => {
                 if (!sessions[sessionId]) {
                     sessions[sessionId] = { context: {} };
                 }
                 sessions[sessionId].context = context;
                 sessions[sessionId].userWaiting = true;
+                if (replyText) {
+                    tgClient.sendMessage({
+                        chat_id: chatId,
+                        text: replyText
+                    });
+                }
                 return cb(context);
             }
         });

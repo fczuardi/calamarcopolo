@@ -6,3 +6,6 @@ data
 
 # Dependency directory
 node_modules
+
+# faq answers json
+answers.json
