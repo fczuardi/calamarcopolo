@@ -98,6 +98,9 @@ tgClient.on('message', message => {
         }
 
         if (sessions[chatId] && sessions[chatId].userWaiting) {
+            if (context.faqSubject) {
+                return null;
+            }
             tgClient.sendMessage({
                 chat_id: chatId,
                 text: doneState(context)
