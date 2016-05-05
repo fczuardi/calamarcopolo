@@ -76,33 +76,41 @@ const setupActions = callbacks => ({
         }
 
         const trip = firstEntityValue(entities, 'trip');
+        const destination = firstEntityValue(entities, 'destination');
+        const origin = firstEntityValue(entities, 'origin');
+        const places = firstEntityValue(entities, 'places');
+        let newPlace = null;
         if (trip === 'info') {
             nextContext.tripDialog = true;
             // if destination or origin were passed as entities, add them to next context
-            const destination = firstEntityValue(entities, 'destination');
             console.log('destination', destination);
             if (destination) {
                 nextContext.destination = destination;
                 console.log('next context D', nextContext);
             }
-            const origin = firstEntityValue(entities, 'origin');
             console.log('origin', origin);
             if (origin) {
                 nextContext.origin = origin;
                 console.log('next context O', nextContext);
             }
+        } else {
+            console.log('no tripinfo intent');
+            newPlace = origin || destination;
         }
-        const places = firstEntityValue(entities, 'places');
-        if (places) {
+
+        const singlePlace = places || newPlace;
+
+        if (singlePlace) {
+            console.log('singlePlace', singlePlace);
             if (
                 (nextContext.destination && !nextContext.origin) ||
-                (!nextContext.destination && !nextContext.origin)
+                (!nextContext.destination && !nextContext.origin && singlePlace)
             ) {
-                nextContext.origin = places;
-                console.log('next context PO', nextContext);
+                nextContext.origin = singlePlace;
+                console.log('singlePlace origin', nextContext);
             } else if (!nextContext.destination && nextContext.origin) {
-                nextContext.destination = places;
-                console.log('next context PD', nextContext);
+                nextContext.destination = singlePlace;
+                console.log('singlePlace destination', nextContext);
             }
         }
 
