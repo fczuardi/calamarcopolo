@@ -100,8 +100,7 @@ const setupActions = callbacks => ({
                 ) {
                     nextContext.origin = places;
                     console.log('next context PO', nextContext);
-                }
-                if (!nextContext.destination && nextContext.origin) {
+                } else if (!nextContext.destination && nextContext.origin) {
                     nextContext.destination = places;
                     console.log('next context PD', nextContext);
                 }
