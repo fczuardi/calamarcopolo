@@ -32,7 +32,7 @@ const setupActions = callbacks => ({
             case 'restart':
                 nextContext.restartDialog = true;
                 console.log('next context', nextContext);
-                return callbacks.merge(sessionId, {}, cb);
+                return callbacks.merge(sessionId, nextContext, cb);
             case 'start':
                 nextContext.disclaimerDialog = true;
                 return callbacks.merge(sessionId, nextContext, cb);
