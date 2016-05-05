@@ -49,6 +49,12 @@ const setupActions = callbacks => ({
             }
         }
 
+        const faq = firstEntityValue(entities, 'faq');
+        if (faq) {
+            nextContext.faqSubject = faq;
+            return callbacks.merge(sessionId, nextContext, cb);
+        }
+
 
         const insult = entities.insult;
         if (insult) {
@@ -57,10 +63,6 @@ const setupActions = callbacks => ({
             return callbacks.merge(sessionId, nextContext, cb);
         }
 
-        const faq = firstEntityValue(entities, 'faq');
-        if (faq) {
-            nextContext.faqSubject = faq;
-        }
 
         // copy destination and origin to the next context
         if (context.origin) {
