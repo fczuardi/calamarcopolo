@@ -51,6 +51,9 @@ tgClient.on('message', message => {
                 console.log('update local context (error)', sessions[sessionId].context);
                 sessions[sessionId].context = context;
                 sessions[sessionId].userWaiting = false;
+                if (context.faqSubject) {
+                    return null;
+                }
                 tgClient.sendMessage({
                     chat_id: chatId,
                     text: errorText(context)
