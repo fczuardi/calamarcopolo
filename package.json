@@ -1,6 +1,6 @@
 {
   "name": "calamarcopolo",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "simple funny bot",
   "main": "index.js",
   "scripts": {
