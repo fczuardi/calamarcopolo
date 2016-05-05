@@ -60,6 +60,22 @@ const setupActions = callbacks => ({
             console.log('next context O', nextContext);
         }
 
+        const places = firstEntityValue(entities, 'places');
+        console.log('origin', origin);
+        if (places) {
+            if (
+                (nextContext.destination && !nextContext.origin) ||
+                (!nextContext.destination && !nextContext.origin)
+            ) {
+                nextContext.origin = places;
+                console.log('next context PO', nextContext);
+            }
+            if (!nextContext.destination && nextContext.origin) {
+                nextContext.destination = places;
+                console.log('next context PD', nextContext);
+            }
+        }
+
         const command = firstEntityValue(entities, 'command');
         if (command) {
             switch (command) {
