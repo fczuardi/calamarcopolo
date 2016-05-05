@@ -91,19 +91,18 @@ const setupActions = callbacks => ({
                 nextContext.origin = origin;
                 console.log('next context O', nextContext);
             }
-            const places = firstEntityValue(entities, 'places');
-            console.log('origin', origin);
-            if (places) {
-                if (
-                    (nextContext.destination && !nextContext.origin) ||
-                    (!nextContext.destination && !nextContext.origin)
-                ) {
-                    nextContext.origin = places;
-                    console.log('next context PO', nextContext);
-                } else if (!nextContext.destination && nextContext.origin) {
-                    nextContext.destination = places;
-                    console.log('next context PD', nextContext);
-                }
+        }
+        const places = firstEntityValue(entities, 'places');
+        if (places) {
+            if (
+                (nextContext.destination && !nextContext.origin) ||
+                (!nextContext.destination && !nextContext.origin)
+            ) {
+                nextContext.origin = places;
+                console.log('next context PO', nextContext);
+            } else if (!nextContext.destination && nextContext.origin) {
+                nextContext.destination = places;
+                console.log('next context PD', nextContext);
             }
         }
 
