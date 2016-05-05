@@ -72,33 +72,36 @@ const setupActions = callbacks => ({
             nextContext.destination = context.destination;
         }
 
-        // if destination or origin were passed as entities, add them to next context
-        const destination = firstEntityValue(entities, 'destination');
-        console.log('destination', destination);
-        if (destination) {
-            nextContext.destination = destination;
-            console.log('next context D', nextContext);
-        }
-        const origin = firstEntityValue(entities, 'origin');
-        console.log('origin', origin);
-        if (origin) {
-            nextContext.origin = origin;
-            console.log('next context O', nextContext);
-        }
-
-        const places = firstEntityValue(entities, 'places');
-        console.log('origin', origin);
-        if (places) {
-            if (
-                (nextContext.destination && !nextContext.origin) ||
-                (!nextContext.destination && !nextContext.origin)
-            ) {
-                nextContext.origin = places;
-                console.log('next context PO', nextContext);
+        const trip = firstEntityValue(entities, 'trip');
+        if (trip === 'info') {
+            nextContext.tripDialog = true;
+            // if destination or origin were passed as entities, add them to next context
+            const destination = firstEntityValue(entities, 'destination');
+            console.log('destination', destination);
+            if (destination) {
+                nextContext.destination = destination;
+                console.log('next context D', nextContext);
             }
-            if (!nextContext.destination && nextContext.origin) {
-                nextContext.destination = places;
-                console.log('next context PD', nextContext);
+            const origin = firstEntityValue(entities, 'origin');
+            console.log('origin', origin);
+            if (origin) {
+                nextContext.origin = origin;
+                console.log('next context O', nextContext);
+            }
+            const places = firstEntityValue(entities, 'places');
+            console.log('origin', origin);
+            if (places) {
+                if (
+                    (nextContext.destination && !nextContext.origin) ||
+                    (!nextContext.destination && !nextContext.origin)
+                ) {
+                    nextContext.origin = places;
+                    console.log('next context PO', nextContext);
+                }
+                if (!nextContext.destination && nextContext.origin) {
+                    nextContext.destination = places;
+                    console.log('next context PD', nextContext);
+                }
             }
         }
 
@@ -108,10 +111,6 @@ const setupActions = callbacks => ({
             console.log('next context', nextContext);
         }
 
-        const trip = firstEntityValue(entities, 'trip');
-        if (trip === 'info') {
-            nextContext.tripDialog = true;
-        }
         console.log('next context', nextContext);
         return callbacks.merge(sessionId, nextContext, cb);
     }
