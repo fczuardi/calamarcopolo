@@ -26,6 +26,30 @@ const setupActions = callbacks => ({
         console.log('merge entities', entities);
         let nextContext = {};
 
+        const command = firstEntityValue(entities, 'command');
+        if (command) {
+            switch (command) {
+            case 'restart':
+                nextContext.restartDialog = true;
+                console.log('next context', nextContext);
+                return callbacks.merge(sessionId, {}, cb);
+            case 'start':
+                nextContext.disclaimerDialog = true;
+                return callbacks.merge(sessionId, nextContext, cb);
+            case 'version':
+                nextContext.botName = 'Calamarcopolo';
+                nextContext.version = version;
+                break;
+            case 'help':
+                nextContext.helpDialog = true;
+                console.log('next context', nextContext);
+                break;
+            default:
+                break;
+            }
+        }
+
+
         const insult = entities.insult;
         if (insult) {
             nextContext.insultDialog = true;
@@ -73,29 +97,6 @@ const setupActions = callbacks => ({
             if (!nextContext.destination && nextContext.origin) {
                 nextContext.destination = places;
                 console.log('next context PD', nextContext);
-            }
-        }
-
-        const command = firstEntityValue(entities, 'command');
-        if (command) {
-            switch (command) {
-            case 'restart':
-                nextContext.restartDialog = true;
-                console.log('next context', nextContext);
-                return callbacks.merge(sessionId, {}, cb);
-            case 'start':
-                nextContext.disclaimerDialog = true;
-                return callbacks.merge(sessionId, nextContext, cb);
-            case 'version':
-                nextContext.botName = 'Calamarcopolo';
-                nextContext.version = version;
-                break;
-            case 'help':
-                nextContext.helpDialog = true;
-                console.log('next context', nextContext);
-                break;
-            default:
-                break;
             }
         }
 
