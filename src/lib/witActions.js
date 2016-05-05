@@ -106,9 +106,15 @@ const setupActions = callbacks => ({
         }
 
         const interaction = firstEntityValue(entities, 'interaction');
-        if (interaction === 'greeting') {
+        switch (interaction) {
+        case 'greeting':
             nextContext.greetingDialog = true;
-            console.log('next context', nextContext);
+            break;
+        case 'close':
+            nextContext.closeDialog = true;
+            break;
+        default:
+            break;
         }
 
         console.log('next context', nextContext);
