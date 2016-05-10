@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const Telegram = require('telegram-bot-api');
 const Wit = require('node-wit').Wit;
 const setupActions = require('./lib/witActions');
