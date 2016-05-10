@@ -12,6 +12,7 @@
     "info": "npm-scripts-info",
     "start:telegram": "./src/telegram-wit.js",
     "legacy": "./src/botbuilder-compare.js",
+    "mpp": "npm version minor && npm publish && git push",
     "ppp": "npm version patch && npm publish && git push",
     "start:ngrok": "ngrok http $PORT"
   },
